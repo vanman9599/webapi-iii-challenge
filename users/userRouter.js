@@ -3,10 +3,7 @@ const Users = require('./userDb.js');
 const router = express.Router();
 
 
-router.use((req, res, next) => {
-    console.log('users Router!');
-    next();
-  })
+
 
 router.post('/', async (req, res) => {
     try{
@@ -100,7 +97,7 @@ router.put('/:id', validateUserId, async (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
-  const user = await Users.getById(req.params.id);
+  const user = Users.getById(req.params.id);
   if(user){
     next();
   }else{
