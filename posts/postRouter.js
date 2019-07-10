@@ -1,12 +1,12 @@
-const express = 'express';
-const Posts = require('/postDb.js');
+const Posts = require('./postDb.js');
+const express = require('express');
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
     try{
         const posts = await Posts.find(req.query);
-        res.status(200).json(users);
+        res.status(200).json(posts);
     } catch(err){
         console.log(err);
         res.status(500).json({
@@ -19,14 +19,14 @@ router.get('/:id',async (req, res) => {
     try{
         const posts = await Posts.getById(req.params.id);
         if(posts){
-            res.status(200).json(user);
+            res.status(200).json(posts);
         }else{
             res.status(404).json({ message: "User not found"})
         }
     } catch(err){
         console.log(err);
         res.status(500).json({
-            "error retrieving user"
+            message: "error retrieving user"
         })
     }
 });
@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
     try{
         const post = Posts.update(req.params.id, req.body);
         if(post){
-            res.status(200).json(user);
+            res.status(200).json(post);
         } else {
             res.status(404).json({
                 message: "The user could not be found"
